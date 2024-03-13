@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css"
+          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap-theme.min.css"
+          integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"
+            integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+            crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg add_btn" data-toggle="modal" data-target="#myModal">
+    添加员工
+</button>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="name">姓名</label>
+                        <input type="text" class="form-control" id="name"
+                               placeholder="Name">
+                        <span class="userNameErr"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">年龄</label>
+                        <input type="text" class="form-control" id="age"
+                               placeholder="Age">
+                        <span class="ageErr"></span>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary keep_btn">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>姓名</th>
+        <th>年龄</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+
+    <tbody class="tbody">
+    <tr>
+        <td>1</td>
+        <td>张开</td>
+        <td>23</td>
+        <td>
+            <button class="btn btn-sm btn-danger del_btn">删除</button>
+            <button class="btn btn-sm btn-warning edit_btn" data-toggle="modal" data-target="#myModal1">编辑</button>
+        </td>
+    </tr>
+
+    <tr>
+        <td>2</td>
+        <td>王开</td>
+        <td>62</td>
+        <td>
+            <button class="btn btn-sm btn-danger del_btn">删除</button>
+            <button class="btn btn-sm btn-warning edit_btn" data-toggle="modal" data-target="#myModal1">编辑</button>
+        </td>
+    </tr>
+
+    <tr>
+        <td>3</td>
+        <td>李开</td>
+        <td>85</td>
+        <td>
+            <button class="btn btn-sm btn-danger del_btn">删除</button>
+            <button class="btn btn-sm btn-warning edit_btn" data-toggle="modal" data-target="#myModal1">编辑</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel1">Modal title</h4>
+            </div>
+
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="name1">姓名</label>
+                        <input type="text" class="form-control1 form-control" id="name1"
+                               placeholder="Name">
+                        <span class="userNameErr"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="age1">年龄</label>
+                        <input type="text" class="form-control1 form-control" id="age1"
+                               placeholder="Age">
+                        <span class="ageErr"></span>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary change_btn">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function checkData(name, age) {
+        //对于name字段来说，只需要校验不能为空就行
+        if (name === '') {
+            $(".userNameErr").text("用户名不能为空");
+        } else if (!(age != '' && 0 <= age && age <= 100)) {
+            $(".ageErr").text(`年龄范围必须是1-100之间，你输入的是${age}`)
+        } else {
+            $(".userNameErr").text("");
+            $(".ageErr").text("")
+            return [name, age]
+        }
+        return [false, false]
+    }
+
+    //添加
+    $(".keep_btn").click(function () {
+        var name = $("#name").val();
+        var age = $("#age").val();
+        var arr = checkData(name, age);
+        if (!arr.includes(false)) {
+            // 添加节点
+            var num = $(".tbody").children().length + 1;
+            var i = 0
+            var tr = `<tr>
+                    <td>${num}</td>
+                    <td>${name}</td>
+                    <td>${age}</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger del_btn">删除</button>
+                        <button class="btn btn-sm btn-warning edit_btn" data-toggle="modal" data-target="#myModal1">编辑</button>
+                    </td>
+                </tr>`;
+
+            $(".tbody").append(tr);
+            $("#name").val("");
+            $("#age").val("");
+            $("#myModal").modal("hide");
+
+        }
+
+
+    })
+
+    //删除
+    $(".tbody").on("click", ".del_btn", function () {
+        console.log("true")
+        alert("已删除")
+        $(this).parent().parent().remove();
+
+        // 调整序号
+        $(".tbody tr td:first-child").each(function (i) {
+            console.log(i);
+            $(this).html(i + 1);
+        })
+
+    });
+
+
+    //编辑
+
+    $(".tbody").on("click", ".edit_btn", function () {
+        $(this).parent().parent().addClass("zxc")
+
+        var data123 = []
+        $(this).parent().siblings().each(function () {
+
+            if ($(this).index() !== 0) {
+                // console.log($(this));
+                var v = $(this).html();
+                // console.log(v)
+                data123.push(v)
+                // var inp = `<input type="text" value="${v}">`;
+                // console.log(inp)
+            }
+            $("#name1").val(data123[0])
+            $("#age1").val(data123[1])
+
+        })
+
+    })
+
+
+    // $(".edit_btn").click(function () {
+    //     $(this).parent().parent().addClass("zxc")
+    //     $(this).parent().siblings().each(function () {
+    //
+    //         if ($(this).index() !== 0) {
+    //             console.log($(this));
+    //             var v = $(this).html();
+    //             console.log(v)
+    //             // var inp = `<input type="text" value="${v}">`;
+    //             // console.log(inp)
+    //             $(".form-control1").each(function () {
+    //                     $(this).val(v)
+    //                 }
+    //             )
+    //         }
+    //     })
+    // })
+
+    // 保存事件
+
+    $(".change_btn").click(function () {
+        var data = []
+        var name = $("#name1").val();
+        var age = $("#age1").val();
+        var arr = checkData(name, age)
+        if (!arr.includes(false)) {
+            $("#myModal1").modal("hide");
+            $(".zxc").children().eq(1).html(name)
+            $(".zxc").children().eq(2).html(age)
+            $(".zxc").removeClass("zxc")
+
+
+        }
+
+
+    })
+
+
+</script>
+
+</body>
+</html>
